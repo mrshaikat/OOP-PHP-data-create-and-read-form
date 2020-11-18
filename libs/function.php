@@ -44,6 +44,34 @@
        }
     }
 
+    public function emailCheck( $email){
+        $sql = "SELECT * FROM student WHERE email = '$email'";
+        $data =  $this -> connection ->query($sql );
+ 
+        $user_count = $data -> num_rows ;
+ 
+        if($user_count > 0){
+             return false;
+        }else{
+            return true;
+ 
+        }
+    }
+
+    public function studentDelete( $sid ){
+
+        $sql = "DELETE FROM student WHERE student_id='$sid' ";
+
+        $data = $this -> connection -> query($sql);
+
+        if( $data ){
+            return "okk";
+        }else{
+            return "prblm";
+        }
+       
+    }
+
 
 
 

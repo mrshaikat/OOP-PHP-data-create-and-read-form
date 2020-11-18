@@ -17,6 +17,46 @@
 </head>
 <body>
 
+<div class="data-all">
+			<table class=" table table-striped table-hover">
+
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Email</th>
+							<th>Cell</th>
+							<th>Username</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<?php 
+
+							$all_data = $student -> allData();
+
+							while( $data = $all_data -> fetch_assoc() ):
+						
+						?>
+						<tr>
+							<td><?php echo  $data['name'];?></td>
+							<td><?php echo  $data['email'];?></td>
+							<td><?php echo  $data['cell'];?></td>
+							<td><?php echo  $data['uname'];?></td>
+							<td>
+								<a class="btn btn-info btn-sm" href="">Edit</a>
+								<a class="btn btn-danger btn-sm" href="inc/delete_student.php?id=<?php echo $data['student_id'];?>">Delete</a>
+							</td>
+						</tr>
+
+
+							<?php endwhile; ?>
+					</tbody>
+
+			</table>
+			</div>
+
+
  
 	
 	
@@ -32,6 +72,8 @@
 
 		 $name = $_POST['name'];
 		 $email = $_POST['email'];
+
+		 $email_check = $student -> emailCheck( $email);
 		 $cell = $_POST['cell'];
 		 $uname = $_POST['uname'];
 
@@ -44,6 +86,11 @@
 		 }elseif( $uname_check == false ){
 			echo "<strong>Username Already Exist</strong>";
 		 }
+
+		 elseif( $email_check == false ){
+			echo "<strong>Username Already Exist</strong>";
+		 }
+
 		 else{
 
 			$data = $student -> insertStudent($name,$email, $cell, $uname);
@@ -88,40 +135,7 @@
 	
 
 
-			<div class="data-all">
-			<table class=" table table-striped table-hover">
-
-					<thead>
-						<tr>
-							<th>Name</th>
-							<th>Email</th>
-							<th>Cell</th>
-							<th>Username</th>
-						</tr>
-					</thead>
-
-					<tbody>
-						<?php 
-
-							$all_data = $student -> allData();
-
-							while( $data = $all_data -> fetch_assoc() ):
-						
-						?>
-						<tr>
-							<td><?php echo  $data['name'];?></td>
-							<td><?php echo  $data['email'];?></td>
-							<td><?php echo  $data['cell'];?></td>
-							<td><?php echo  $data['uname'];?></td>
-						</tr>
-
-
-							<?php endwhile; ?>
-					</tbody>
-
-			</table>
-			</div>
-
+		
 
 
 
